@@ -32,6 +32,6 @@ app.get("/users", async (req, res) => {
 });
 
 
-app.listen(3002, () => {
-  console.log("Server is running on port 3000");
+app.listen(8002, () => {
+  console.log("Server is running on port production 8002");
 });
