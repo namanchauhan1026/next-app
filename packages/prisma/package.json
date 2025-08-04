@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
+  "scripts": {
+    "build": "tsc -b"
+  },
   "devDependencies": {
     "@repo/typescript-config": "*",
     "prisma": "^6.13.0"
@@ -10,7 +13,7 @@
   "keywords": [],
   "author": "",
   "exports": {
-    "./client": "./src/index.ts"
+    "./client": "./dist/index.js"
   },
   "license": "ISC",
   "description": "",
