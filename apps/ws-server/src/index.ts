@@ -9,8 +9,8 @@ function getRandomEmail() {
   return `user${Math.floor(Math.random() * 10000)}@test.com`;
 }
 
-const server = new WebSocketServer({ port: 8001 }, () => {
-  console.log(" ws Server is running on port 8001");
+const server = new WebSocketServer({ port: 3001 }, () => {
+  console.log(" ws Server is running on port 3001");
 });
 
 server.on("connection", async(socket) => {
