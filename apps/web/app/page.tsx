@@ -13,6 +13,7 @@ export default async function Home() {
       <h1>This is the list of users in the database</h1>
       {userMap.map((user: any) => (
         <div key={user.username}>
+          <h1>auto deploy</h1>
           <h2>user name is {user.username} and password is {user.password}</h2>
         </div>
       ))}
