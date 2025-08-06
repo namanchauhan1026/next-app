@@ -1,0 +1,41 @@
+name: Deploy to Dev
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_everything:
+    name: Deploy to Dev Server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: 🚀 Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: 34.131.250.104
+          username: naman
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd staging/next-app
+            git checkout main
+            git pull origin main
+
+            echo "📦 Installing dependencies..."
+            npm install
+
+            echo "⚙️ Building all apps..."
+            cd apps/web && npm run build && cd ../..
+            cd apps/http-server && npm run build && cd ../..
+            cd apps/ws-server && npm run build && cd ../..
+
+            echo "🔁 Restarting apps using PM2..."
+            pm2 start apps/web --name web || pm2 restart web
+            pm2 start apps/http-server --name http-server || pm2 restart http-server
+            pm2 start apps/ws-server --name ws-server || pm2 restart ws-server
+
+            echo "✅ Deployment complete!"
