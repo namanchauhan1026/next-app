@@ -29,13 +29,14 @@ jobs:
             npm install
 
             echo "⚙️ Building all apps..."
+            cd packages/prisma && npm run build && cd ../..
             cd apps/web && npm run build && cd ../..
             cd apps/http-server && npm run build && cd ../..
             cd apps/ws-server && npm run build && cd ../..
 
             echo "🔁 Restarting apps using PM2..."
-            pm2 start apps/web --name web || pm2 restart web
-            pm2 start apps/http-server --name http-server || pm2 restart http-server
-            pm2 start apps/ws-server --name ws-server || pm2 restart ws-server
+            pm2 restart staging-http-server
+            pm2 restart staging-ws-server
+            pm2 restart staging-next-app
 
             echo "✅ Deployment complete!"
